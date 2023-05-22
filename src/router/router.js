@@ -1,5 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import {subscribeToAuth, getAdmin} from "../services/auth.js";
+import {auth} from "../services/firebase.js";
+import {onAuthStateChanged} from "firebase/auth";
 import Chat from '../views/Chat.vue'
 import Shows from '../views/Shows.vue'
 import Login from '../views/Login.vue'
@@ -20,7 +22,7 @@ const routes = [
     { path: '/profile',          component: Profile,      meta: { requiresAuth: true, }},
     { path: '/usuario/:id',      component: UserProfile,  meta: { requiresAuth: true, }},
     { path: '/usuario/:id/chat', component: PrivateChat,  meta: { requiresAuth: true, }},
-    { path: '/admin',            component: Admin,        meta: { requiresAdmin: true, }}
+    { path: '/admin',            component: Admin,        meta: { requiresAdmin: true, requiresAuth: true}}
 
 ]
 
@@ -29,19 +31,34 @@ const router = createRouter({
     history: createWebHashHistory(),
 });
 
-let user = {
-    id: null,
-    email: null,
-}
-subscribeToAuth(newUser => user = newUser);
+// let user = {
+//     id: null,
+//     email: null,
+// }
+// subscribeToAuth(newUser => user = newUser);
 router.beforeEach( async (to, from) => {
-    if(to.meta.requiresAuth && user.id === null) {
-        return {path: '/login'}
-    }
-    console.log( await getAdmin().admin)
-    if(to.meta.requiresAdmin && admin.admin === true){
-        return {path: '/login'}
-    }
+    onAuthStateChanged(auth, async (user)=>{
+        if (user){
+            const userData = await getAdmin (user.uid);
+            if(userData.admin){
+                console.log("sos un usuario")
+            }else{
+
+                if(to.meta.requiresAdmin){
+                    console.log("no sos un admin")
+                    router.push("/");
+                }
+            }
+        }else{
+            if(to.meta.requiresAuth){
+                console.log("no estas registrado, que haces aca?")
+                router.push("/login");
+            }
+        }
+    })
+
 });
+
+
 
 export default router

@@ -82,7 +82,7 @@ export function notify(callback) {
     callback(user);
 }
 export const getAdmin = async (id) => {
-    const docRef = doc(db, "users", 'gD3suHosstNjd0AcM4Bknb2NHle2');
+    const docRef = doc(db, "users", id);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       return docSnap.data();

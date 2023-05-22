@@ -1,25 +1,4 @@
 <script setup>
-// import {logout, subscribeToAuth} from "./services/auth.js";
-// export default {
-//     name: 'App',
-//     data: () => ({
-//         user: {
-//             id: null,
-//             email: null,
-//         }
-//     }),
-
-//     methods: {
-//         logout() {
-//             logout();
-//             this.$router.push({path: '/login'});
-//         }
-//     },
-
-//     mounted() {
-//         subscribeToAuth(user => this.user = user);
-//     }
-// }
 import {logout} from "./services/auth.js";
 import {useRouter} from "vue-router";
 import {useAuth} from "./composition/useAuth.js";
@@ -69,7 +48,7 @@ function useLogout() {
             </li>
             <template v-if="user.id !== null">
                     <li class="nav-item p-2">
-                        <router-link class="nav-link text-light" to="/chat">Chat</router-link>
+                        <router-link class="nav-link text-light" to="/usuario/gD3suHosstNjd0AcM4Bknb2NHle2/chat">Asistente</router-link>
                     </li>
                     <li class="nav-item p-2">
                         <router-link class="nav-link text-light" to="/profile">Mi Perfil</router-link>

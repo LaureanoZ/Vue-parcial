@@ -24,7 +24,7 @@ function useLogin() {
         });
         cargando.value = false;
 
-        router.push('/chat');
+        router.push('/usuario/gD3suHosstNjd0AcM4Bknb2NHle2/chat');
     }
 
     return {
