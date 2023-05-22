@@ -1,22 +1,22 @@
 <script setup>
-import {getDataFirestore} from "../services/show.js"
+import { getDataFirestore } from "../services/show.js";
+import { ref, onMounted } from "vue";
 
-  getDataFirestore()
-  .then(datos => {
-    console.log('Datos obtenidos:', datos);
-  })
-  .catch(error => {
-    console.error('Error al obtener los datos de Firestore:', error);
-  });
+const shows = ref([]);
+
+onMounted(async () => {
+  shows.value = await getDataFirestore();
+});
 </script>
 <template>
   <!-- Sección de Shows -->
   <section class="container py-5">
+    {{ shows }}
     <h1 class="text-center mb-4">Nuestros Shows</h1>
     <div class="row">
       <div class="col-md-4 mb-4">
         <div class="card">
-          <img src="../imgs/galeria-1.png" class="card-img-top" alt="Show 1">
+          <img src="../imgs/galeria-1.png" class="card-img-top" alt="Show 1" />
           <div class="card-body">
             <h5 class="card-title">Show Mágico 1</h5>
             <p class="card-text">Un show lleno de ilusiones y sorpresas.</p>
@@ -25,7 +25,7 @@ import {getDataFirestore} from "../services/show.js"
       </div>
       <div class="col-md-4 mb-4">
         <div class="card">
-          <img src="../imgs/galeria-2.png" class="card-img-top" alt="Show 2">
+          <img src="../imgs/galeria-2.png" class="card-img-top" alt="Show 2" />
           <div class="card-body">
             <h5 class="card-title">Show Mágico 2</h5>
             <p class="card-text">Un espectáculo que desafiará tu percepción.</p>
@@ -34,10 +34,12 @@ import {getDataFirestore} from "../services/show.js"
       </div>
       <div class="col-md-4 mb-4">
         <div class="card">
-          <img src="./imgs/galeria-3.png" class="card-img-top" alt="Show 3">
+          <img src="./imgs/galeria-3.png" class="card-img-top" alt="Show 3" />
           <div class="card-body">
             <h5 class="card-title">Show Mágico 3</h5>
-            <p class="card-text">Sumérgete en el mundo de la magia y la fantasía.</p>
+            <p class="card-text">
+              Sumérgete en el mundo de la magia y la fantasía.
+            </p>
           </div>
         </div>
       </div>

@@ -1,43 +1,26 @@
-import {db} from "./firebase.js";
+import { db } from "./firebase.js";
+import { doc, getDoc, getDocs, collection } from "firebase/firestore";
 
+// Obtener un show por id
+export const getShow = async (id) => {
+  const docRef = doc(db, "shows", id);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    return docSnap.data();
+  } else {
+    console.log("Doc no encontrado");
+  }
+};
 
-const collectionRef = db.collection('shows');
-const documentRefs = [
-  collectionRef.doc('13cYcIjlWfBSKXu36TZz'),
-  collectionRef.doc('63G4Xdqz91IRnaiza93A'),
-  collectionRef.doc('cf4vlV1mkfrcYQmFAiQm')
-];
+// const documentRefs = [
+//   collectionRef.doc("13cYcIjlWfBSKXu36TZz"),
+//   collectionRef.doc("63G4Xdqz91IRnaiza93A"),
+//   collectionRef.doc("cf4vlV1mkfrcYQmFAiQm"),
+// ];
 
 // Función para obtener los datos de Firestore
 export async function getDataFirestore() {
-  try {
-    const datos = [];
-
-    // Obtiene los documentos uno por uno
-    for (const documentRef of documentRefs) {
-      const documentSnapshot = await documentRef.get();
-
-      // Verifica si el documento existe
-      if (documentSnapshot.exists) {
-        const documentData = documentSnapshot.data();
-        datos.push(documentData);
-      } else {
-        console.log(`El documento ${documentRef.id} no existe.`);
-      }
-    }
-
-    return datos;
-  } catch (error) {
-    console.error('Error al obtener los datos de Firestore:', error);
-    throw error;
-  }
+  const querySnapshot = await getDocs(collection(db, "shows"));
+  const datos = querySnapshot.docs.map((doc) => doc.data());
+  return datos;
 }
-
-// Ejecuta la función para obtener los datos
-// getDataFirestore()
-//   .then(datos => {
-//     console.log('Datos obtenidos:', datos);
-//   })
-//   .catch(error => {
-//     console.error('Error al obtener los datos de Firestore:', error);
-//   });
