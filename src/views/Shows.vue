@@ -1,6 +1,7 @@
 <script setup>
 import { getDataFirestore } from "../services/show.js";
 import { ref, onMounted } from "vue";
+import AppButton from "../components/AppButton.vue";
 
 const shows = ref([]);
 
@@ -11,38 +12,21 @@ onMounted(async () => {
 <template>
   <!-- Sección de Shows -->
   <section class="container py-5">
-    {{ shows }}
-    <h1 class="text-center mb-4">Nuestros Shows</h1>
-    <div class="row">
-      <div class="col-md-4 mb-4">
+    <h1 class="text-center mb-4 dm-font">Nuestros Shows</h1>
+    <article class="row"
+    >
+      <div class="col-md-4 mb-4"     
+      v-for="show in shows">
         <div class="card">
-          <img src="../imgs/galeria-1.png" class="card-img-top" alt="Show 1" />
+          <img :src="`/src/resources/imgs/${show.image}.png`" class="card-img-top img-card" :alt="show.title" />
           <div class="card-body">
-            <h5 class="card-title">Show Mágico 1</h5>
-            <p class="card-text">Un show lleno de ilusiones y sorpresas.</p>
+            <h2 class="card-title">{{ show.title }}</h2>
+            <p class="card-text">{{ show.description }}</p>
+            <p class="card-text">Precio: ${{ show.price }}</p>
+            <AppButton>Adquirir</AppButton>
           </div>
         </div>
       </div>
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <img src="../imgs/galeria-2.png" class="card-img-top" alt="Show 2" />
-          <div class="card-body">
-            <h5 class="card-title">Show Mágico 2</h5>
-            <p class="card-text">Un espectáculo que desafiará tu percepción.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <img src="./imgs/galeria-3.png" class="card-img-top" alt="Show 3" />
-          <div class="card-body">
-            <h5 class="card-title">Show Mágico 3</h5>
-            <p class="card-text">
-              Sumérgete en el mundo de la magia y la fantasía.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+    </article>
   </section>
 </template>

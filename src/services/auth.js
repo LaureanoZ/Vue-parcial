@@ -1,5 +1,8 @@
 import {auth} from "./firebase.js";
 import {onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut} from "firebase/auth";
+import { db } from "./firebase.js";
+import { doc, getDoc } from "firebase/firestore";
+
 import {createUser} from "./users.js";
 
 
@@ -78,3 +81,12 @@ export function notifyAll() {
 export function notify(callback) {
     callback(user);
 }
+export const getAdmin = async (id) => {
+    const docRef = doc(db, "users", 'gD3suHosstNjd0AcM4Bknb2NHle2');
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return docSnap.data();
+    } else {
+      console.log("no se encontro el doc :c");
+    }
+  };
