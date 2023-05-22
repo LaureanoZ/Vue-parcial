@@ -1,43 +1,43 @@
-<script>
-import {logout, subscribeToAuth} from "./services/auth.js";
-export default {
-    name: 'App',
-    data: () => ({
-        user: {
-            id: null,
-            email: null,
-        }
-    }),
-
-    methods: {
-        logout() {
-            logout();
-            this.$router.push({path: '/login'});
-        }
-    },
-
-    mounted() {
-        subscribeToAuth(user => this.user = user);
-    }
-}
-// import {logout} from "./services/auth.js";
-// import {useRouter} from "vue-router";
-// import {useAuth} from "./composition/useAuth.js";
-
-// const {user} = useAuth();
-// const {handleLogout} = useLogout();
-
-// function useLogout() {
-//     const router = useRouter();
-
-//     return {
-//         handleLogout() {
-//             logout();
-//             // Redireccionamos al usuario al login.
-//             router.push({path: '/login'});
+<script setup>
+// import {logout, subscribeToAuth} from "./services/auth.js";
+// export default {
+//     name: 'App',
+//     data: () => ({
+//         user: {
+//             id: null,
+//             email: null,
 //         }
+//     }),
+
+//     methods: {
+//         logout() {
+//             logout();
+//             this.$router.push({path: '/login'});
+//         }
+//     },
+
+//     mounted() {
+//         subscribeToAuth(user => this.user = user);
 //     }
 // }
+import {logout} from "./services/auth.js";
+import {useRouter} from "vue-router";
+import {useAuth} from "./composition/useAuth.js";
+
+const {user} = useAuth();
+const {handleLogout} = useLogout();
+
+function useLogout() {
+    const router = useRouter();
+
+    return {
+        handleLogout() {
+            logout();
+            // Redireccionamos al usuario al login.
+            router.push({path: '/login'});
+        }
+    }
+}
 </script>
 
 <template>

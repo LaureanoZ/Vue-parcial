@@ -22,9 +22,9 @@ function useChat() {
         });
     });
 
-    onUnmounted(() => {
-        unsubscribe();
-    });
+    // onUnmounted(() => {
+    //     unsubscribe();
+    // });
 
     return {
         cargando,
