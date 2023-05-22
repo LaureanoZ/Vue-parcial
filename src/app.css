@@ -1,0 +1,44 @@
+/* fonts */
+@font-face {
+  font-family: Richard;
+  src: url('resources/fonts/Richard-Samuels.otf');
+}
+html, body, #app {
+    height: 100%;
+}
+.grid-custom {
+    display: grid;
+    grid-template-rows: 150px 1fr 100px;
+    height: 100%;
+  }
+  
+  nav {
+    grid-row: 1 / 2;
+    height: 100% !important;
+    background-color: #35363a;
+  }
+  
+  main {
+    grid-row: 2 / 3;
+    height: 100%;
+  }
+  
+  footer {
+    grid-row: 3 / 4;
+    height: 100%;
+    background-color: #35363a;
+  }
+  .logo{
+    max-width: 150px;
+  }
+  .dm-font{
+    font-family: 'Richard';
+  }
+
+  @media screen and (max-width: 992px) {
+    .grid-custom {
+        display: grid;
+        grid-template-rows: 0.1fr 1fr 100px;
+        height: 100%;
+      }
+  }
