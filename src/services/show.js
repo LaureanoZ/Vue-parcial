@@ -1,16 +1,15 @@
 import {db} from "./firebase.js";
 
-const db = db
 
 const collectionRef = db.collection('shows');
 const documentRefs = [
-  collectionRef.doc('documento1'),
-  collectionRef.doc('documento2'),
-  collectionRef.doc('documento3')
+  collectionRef.doc('13cYcIjlWfBSKXu36TZz'),
+  collectionRef.doc('63G4Xdqz91IRnaiza93A'),
+  collectionRef.doc('cf4vlV1mkfrcYQmFAiQm')
 ];
 
 // Función para obtener los datos de Firestore
-async function obtenerDatosFirestore() {
+export async function getDataFirestore() {
   try {
     const datos = [];
 
@@ -35,10 +34,10 @@ async function obtenerDatosFirestore() {
 }
 
 // Ejecuta la función para obtener los datos
-obtenerDatosFirestore()
-  .then(datos => {
-    console.log('Datos obtenidos:', datos);
-  })
-  .catch(error => {
-    console.error('Error al obtener los datos de Firestore:', error);
-  });
+// getDataFirestore()
+//   .then(datos => {
+//     console.log('Datos obtenidos:', datos);
+//   })
+//   .catch(error => {
+//     console.error('Error al obtener los datos de Firestore:', error);
+//   });

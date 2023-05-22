@@ -1,4 +1,13 @@
 <script setup>
+import {getDataFirestore} from "../services/show.js"
+
+  getDataFirestore()
+  .then(datos => {
+    console.log('Datos obtenidos:', datos);
+  })
+  .catch(error => {
+    console.error('Error al obtener los datos de Firestore:', error);
+  });
 </script>
 <template>
   <!-- Sección de Shows -->
